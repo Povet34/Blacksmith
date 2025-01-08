@@ -16,7 +16,7 @@ public class MouseInput : MonoBehaviour {
     private void Update()
 	{
 		//We are using the mouse button as our poking device
-		if(Input.GetMouseButton(0))
+		if(Input.GetMouseButtonDown(0))
 		{
             mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 

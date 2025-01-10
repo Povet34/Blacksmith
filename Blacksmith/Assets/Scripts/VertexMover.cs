@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 public class VertexMover : MonoBehaviour
@@ -58,7 +56,7 @@ public class VertexMover : MonoBehaviour
         int closestVertexIndex = GetClosestVertexIndex(_point);
         ApplyPressureToVertex(closestVertexIndex, _point, _pressure);
 
-        var closestVertices = GetClosestVertices(closestVertexIndex, 10);
+        var closestVertices = GetClosestVertices(closestVertexIndex, 4);
         foreach (var vertex in closestVertices)
         {
             ApplyOppositePressureToVertex(vertex.Key, closestVertexIndex, _pressure);

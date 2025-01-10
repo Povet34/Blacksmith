@@ -11,14 +11,17 @@ public class HitVertex : MonoBehaviour
         // URP Lit 머티리얼 동적으로 생성
         material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
 
+        material.DisableKeyword("_ALPHATEST_ON");
+        material.EnableKeyword("_ALPHABLEND_ON");
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+
         // 머티리얼을 투명하게 설정
         material.SetFloat("_Surface", 1); // 1은 Transparent를 의미
         material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_AlphaBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.EnableKeyword("_ALPHABLEND_ON");
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
 
         // 스무스니스와 메탈릭 값을 0으로 설정
@@ -45,7 +48,7 @@ public class HitVertex : MonoBehaviour
 
         // Emission 속성에 Emission 텍스처 설정
         material.SetTexture("_EmissionMap", emissionTexture);
-        material.SetColor("_EmissionColor", Color.white); // Emission 색상을 흰색으로 설정
+        material.SetColor("_EmissionColor", Color.red); // Emission 색상을 빨간색으로 설정
         material.EnableKeyword("_EMISSION"); // Emission 활성화
 
         material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
@@ -68,6 +71,10 @@ public class HitVertex : MonoBehaviour
             newMaterials[newMaterials.Length - 1] = material;
 
             // 새로운 머티리얼 리스트를 메쉬 렌더러에 설정
+            meshRenderer.materials = newMaterials;
+
+            // 머티리얼을 강제로 다시 적용하여 초기화 문제 해결
+            meshRenderer.material = null;
             meshRenderer.materials = newMaterials;
         }
     }

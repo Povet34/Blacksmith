@@ -23,14 +23,20 @@ public class MouseInput : MonoBehaviour {
 			//We need to check if we are clicking on a mesh we can deform
 			if(Physics.Raycast(mouseRay, out raycastHit))
 			{
-                Jellyfier jellyfier = raycastHit.collider.GetComponent<Jellyfier>();
-				if(jellyfier != null)
+                VertexMover vertexMover = raycastHit.collider.GetComponent<VertexMover>();
+				if(vertexMover != null)
 				{
                     Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
-                    jellyfier.ApplyPressureToPoint(inputPoint, pressureForce);
+                    vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
                 }
+
+                //HitVertex hitVertex = raycastHit.collider.GetComponent<HitVertex>();
+                //if (hitVertex != null)
+                //{
+                //    Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
+                //    hitVertex.ApplyHitEffect(inputPoint);
+                //}
             }
-			
         }
 	}
 }

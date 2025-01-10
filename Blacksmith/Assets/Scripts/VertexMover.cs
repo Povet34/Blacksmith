@@ -5,20 +5,13 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-public class Jellyfier : MonoBehaviour
+public class VertexMover : MonoBehaviour
 {
-    // 젤리 오브젝트가 얼마나 빠르게 튀어오를지를 설명하는 값
-    public float bounceSpeed;
-
-    // 튀어오르는 것을 결국 멈추게 하기 위해 필요한 값
-    public float stiffness;
-
     // Mesh를 얻기 위해 필요한 MeshFilter
     private MeshFilter meshFilter;
     private Mesh mesh;
 
-    public float nearbyRatio = 0.5f;
-    public float affectedNearByRatio = 0.5f;
+    public float affectedNearByRatio = 0.2f;
 
     // 정점들을 추적하기 위해 필요함
     // 현재 상태뿐만 아니라 원래 위치 등도 포함

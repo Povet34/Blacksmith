@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouseInput : MonoBehaviour {
 
+    [SerializeField] ParticleSystem hitEffect;
+
     public float pressureForce;
 	//We need to apply an offset when adding force to our 
 	//nesh to ensure that the vertices arent being pushed apart but rather 
@@ -28,14 +30,9 @@ public class MouseInput : MonoBehaviour {
 				{
                     Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
                     vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
-                }
 
-                //HitVertex hitVertex = raycastHit.collider.GetComponent<HitVertex>();
-                //if (hitVertex != null)
-                //{
-                //    Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
-                //    hitVertex.ApplyHitEffect(inputPoint);
-                //}
+                    Instantiate(hitEffect, raycastHit.point, Quaternion.LookRotation(raycastHit.normal));
+                }
             }
         }
 	}

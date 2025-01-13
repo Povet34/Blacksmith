@@ -31,7 +31,8 @@ public class MouseInput : MonoBehaviour {
                     Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
                     vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
 
-                    Instantiate(hitEffect, raycastHit.point, Quaternion.LookRotation(raycastHit.normal));
+                    var particle = Instantiate(hitEffect, raycastHit.point, Quaternion.LookRotation(raycastHit.normal));
+                    Destroy(particle.gameObject, particle.main.duration);
                 }
             }
         }

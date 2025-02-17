@@ -9,7 +9,7 @@ public class BehaviourState
     public string ID;
     public GameObject Obj;
 }
-public class CharacterController : MonoBehaviour
+public class CharacterController_WaterTest : MonoBehaviour
 {
     [SerializeField] Animator _Anim;
 

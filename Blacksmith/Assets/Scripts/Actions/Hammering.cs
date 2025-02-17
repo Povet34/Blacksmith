@@ -11,16 +11,30 @@ public class Hammering : MonoBehaviour
         public Vector3 rot;
     }
 
-    [SerializeField] Transform rightArmTarget;
-    public ActionTransform readyTr;
-    public ActionTransform hitTr;
+    public struct InitData
+    {
+        public Action hitCallback;
+    }
 
+    [SerializeField] Transform rightArmTarget;
+    public ActionTransform rightReadyTr;
+    public ActionTransform rightHitTr;
+
+    [SerializeField] Transform leftArmTarget;
+    public ActionTransform leftReadyTr;
+    public ActionTransform leftHitTr;
+
+    public float time;
     bool isDone = true;
 
-    private void Start()
+    Action hitCallback;
+
+    public void Init(InitData data)
     {
-        rightArmTarget.localPosition = readyTr.pos;
-        rightArmTarget.localRotation = Quaternion.Euler(readyTr.rot);
+        hitCallback = data.hitCallback;
+
+        rightArmTarget.localPosition = rightReadyTr.pos;
+        rightArmTarget.localRotation = Quaternion.Euler(rightReadyTr.rot);
     }
 
     private void Update()
@@ -37,19 +51,14 @@ public class Hammering : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         isDone = false;
-        sequence.AppendCallback(() =>
-        {
-            rightArmTarget.DOLocalMove(hitTr.pos, 0.5f);
-            rightArmTarget.DOLocalRotate(hitTr.rot, 0.5f);
-        });
+        sequence.Append(rightArmTarget.DOLocalMove(rightHitTr.pos, time).SetEase(Ease.InExpo));
+        sequence.Join(rightArmTarget.DOLocalRotate(rightHitTr.rot, time).SetEase(Ease.InExpo));
 
-        sequence.AppendInterval(0.2f);
+        sequence.AppendCallback(() => hitCallback());
+        sequence.AppendInterval(0.1f);
 
-        sequence.AppendCallback(() => 
-        {
-            rightArmTarget.DOLocalMove(readyTr.pos, 0.5f);
-            rightArmTarget.DOLocalRotate(readyTr.rot, 0.5f);
-        });
+        sequence.Append(rightArmTarget.DOLocalMove(rightReadyTr.pos, 0.2f));
+        sequence.Join(rightArmTarget.DOLocalRotate(rightReadyTr.rot, 0.2f));
 
         sequence.AppendCallback(() =>
         {

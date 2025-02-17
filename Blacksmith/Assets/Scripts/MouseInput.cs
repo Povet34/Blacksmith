@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class MouseInput : MonoBehaviour {
 
@@ -15,19 +17,21 @@ public class MouseInput : MonoBehaviour {
     private Ray mouseRay;
     private RaycastHit raycastHit;
 
-    private void Update()
-	{
-		//We are using the mouse button as our poking device
-		if(Input.GetMouseButtonDown(0))
-		{
+    Hammering hammering;
+
+    private void Start()
+    {
+        Hammering.InitData hammerInitData = new Hammering.InitData();
+        hammerInitData.hitCallback = () => 
+        {
             mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-			//We need to check if we are clicking on a mesh we can deform
-			if(Physics.Raycast(mouseRay, out raycastHit))
-			{
+            //We need to check if we are clicking on a mesh we can deform
+            if (Physics.Raycast(mouseRay, out raycastHit))
+            {
                 VertexMover vertexMover = raycastHit.collider.GetComponent<VertexMover>();
-				if(vertexMover != null)
-				{
+                if (vertexMover != null)
+                {
                     Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
                     vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
 
@@ -35,6 +39,8 @@ public class MouseInput : MonoBehaviour {
                     Destroy(particle.gameObject, particle.main.duration);
                 }
             }
-        }
-	}
+        };
+
+        hammering?.Init(hammerInitData);
+    }
 }

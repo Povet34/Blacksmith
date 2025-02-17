@@ -1800,6 +1800,7 @@ GameObject:
   - component: {fileID: 282885650}
   - component: {fileID: 282885649}
   - component: {fileID: 282885651}
+  - component: {fileID: 282885652}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -2081,6 +2082,18 @@ MonoBehaviour:
   hitEffect: {fileID: 6227725374432860989, guid: 9ceee377dfe396a4a9db77372729d4d0, type: 3}
   pressureForce: 3
   pressureOffset: 0
+--- !u!114 &282885652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282885642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaaccc15a70148428419b745936ce4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &283947589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14543,12 +14556,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightArmTarget: {fileID: 163416099}
-  readyTr:
-    pos: {x: -0.19, y: 1.57, z: -8.412}
-    rot: {x: 0.9, y: -172.5, z: 13.3}
-  hitTr:
-    pos: {x: -0.214294, y: 1.457694, z: -8.486306}
-    rot: {x: -48.17, y: 172.167, z: 20.122}
+  rightReadyTr:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0}
+  rightHitTr:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0}
+  leftArmTarget: {fileID: 0}
+  leftReadyTr:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0}
+  leftHitTr:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0}
   time: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

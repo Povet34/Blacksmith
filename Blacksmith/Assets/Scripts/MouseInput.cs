@@ -22,25 +22,26 @@ public class MouseInput : MonoBehaviour {
     private void Start()
     {
         Hammering.InitData hammerInitData = new Hammering.InitData();
-        hammerInitData.hitCallback = () => 
-        {
-            mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //We need to check if we are clicking on a mesh we can deform
-            if (Physics.Raycast(mouseRay, out raycastHit))
-            {
-                VertexMover vertexMover = raycastHit.collider.GetComponent<VertexMover>();
-                if (vertexMover != null)
-                {
-                    Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
-                    vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
-
-                    var particle = Instantiate(hitEffect, raycastHit.point, Quaternion.LookRotation(raycastHit.normal));
-                    Destroy(particle.gameObject, particle.main.duration);
-                }
-            }
-        };
-
+        hammerInitData.hitCallback = ProcessHitEffect;
         hammering?.Init(hammerInitData);
+    }
+
+    void ProcessHitEffect()
+    {
+        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //We need to check if we are clicking on a mesh we can deform
+        if (Physics.Raycast(mouseRay, out raycastHit))
+        {
+            VertexMover vertexMover = raycastHit.collider.GetComponent<VertexMover>();
+            if (vertexMover != null)
+            {
+                Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
+                vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
+
+                var particle = Instantiate(hitEffect, raycastHit.point, Quaternion.LookRotation(raycastHit.normal));
+                Destroy(particle.gameObject, particle.main.duration);
+            }
+        }
     }
 }

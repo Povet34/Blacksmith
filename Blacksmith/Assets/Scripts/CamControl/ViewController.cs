@@ -14,6 +14,14 @@ public class ViewController : MonoBehaviour
     CinemachineCamera cinemachineCamera;
     CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
 
+    Dictionary<ForgeActionController.EAction, string> targetDic = new Dictionary<ForgeActionController.EAction, string>
+    {
+        {ForgeActionController.EAction.Hammering, Anvil},
+        {ForgeActionController.EAction.Honing, Hone},
+        {ForgeActionController.EAction.Brazing, Brazier},
+        {ForgeActionController.EAction.Quenching, QuenchingTank},
+    };
+
     void Start()
     {
         if (null == targets)
@@ -22,35 +30,22 @@ public class ViewController : MonoBehaviour
         cinemachineCamera = GetComponent<CinemachineCamera>();
         cinemachineBasicMultiChannelPerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
 
-        ChangeTarget(Anvil);
+        ChangeTarget(ForgeActionController.EAction.Hammering);
     }
 
-    void ChangeTarget(string key)
+    public void ChangeTarget(ForgeActionController.EAction key)
     {
-        var target = targets.Find(t => t.name == key);
-        if (null == target)
+        if(!targetDic.TryGetValue(key, out string targetName))
+        {
             return;
+        }
+
+        var target = targets.Find(t => t.name == targetName);
+        if (null == target)
+        {
+            return;
+        }
 
         cinemachineCamera.Follow = target;
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeTarget(Anvil);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeTarget(Hone);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeTarget(Brazier);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeTarget(QuenchingTank);
-        }
     }
 }

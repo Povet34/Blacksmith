@@ -3,7 +3,7 @@ using System;
 using Unity.Physics;
 using UnityEngine;
 
-public class Hammering : MonoBehaviour
+public class Hammering : MonoBehaviour, IForgeAction
 {
     [Serializable]
     public struct ActionTransform
@@ -22,25 +22,16 @@ public class Hammering : MonoBehaviour
     public ActionTransform leftReadyTr;
     public ActionTransform leftHitTr;
 
-    public float time;
+    public float time = 0.1f;
     bool isDone = true;
 
-    public float pressureForce;
+    public float pressureForce = 3;
     public float pressureOffset;
 
     public void Init()
     {
         rightArmTarget.localPosition = rightReadyTr.pos;
         rightArmTarget.localRotation = Quaternion.Euler(rightReadyTr.rot);
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if(isDone)
-                Do();
-        }
     }
 
     void ApplyHit()
@@ -59,6 +50,9 @@ public class Hammering : MonoBehaviour
 
     public void Do()
     {
+        if (!isDone)
+            return;
+
         Sequence sequence = DOTween.Sequence();
 
         isDone = false;

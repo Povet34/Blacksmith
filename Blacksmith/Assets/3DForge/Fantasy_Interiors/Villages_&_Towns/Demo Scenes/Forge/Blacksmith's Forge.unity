@@ -1960,7 +1960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afaaccc15a70148428419b745936ce4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hammering: {fileID: 6158744974337675298}
+  viewController: {fileID: 282885649}
+  hammering: {fileID: 6158744974337675302}
 --- !u!1001 &283947589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13974,10 +13975,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arm
       objectReference: {fileID: 0}
-    - target: {fileID: 8655329046248084545, guid: dead8fda00158554fa57caddab5048d1, type: 3}
-      propertyPath: hitEffect
-      value: 
-      objectReference: {fileID: 6227725374432860989, guid: 9ceee377dfe396a4a9db77372729d4d0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13988,15 +13985,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 110015831129206790, guid: dead8fda00158554fa57caddab5048d1, type: 3}
   m_PrefabInstance: {fileID: 6158744974337675293}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6158744974337675298 stripped
+--- !u!114 &6158744974337675302 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8655329046248084545, guid: dead8fda00158554fa57caddab5048d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7969236652347364115, guid: dead8fda00158554fa57caddab5048d1, type: 3}
   m_PrefabInstance: {fileID: 6158744974337675293}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5f8753ab6f56184cb0832ccc394b898, type: 3}
+  m_Script: {fileID: 11500000, guid: 43178ba0275611d48a229d0e9299a3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

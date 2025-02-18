@@ -638,7 +638,7 @@ PrefabInstance:
       addedObject: {fileID: 6840974251611141067}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3aa08d40f251e254c93867cf90330b90, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8655329046248084545}
+      addedObject: {fileID: 7969236652347364115}
   m_SourcePrefab: {fileID: 100100000, guid: 3aa08d40f251e254c93867cf90330b90, type: 3}
 --- !u!4 &47089122005243046 stripped
 Transform:
@@ -773,7 +773,7 @@ MonoBehaviour:
   - {fileID: 47089122005243046}
   - {fileID: 4528127348485857450}
   - {fileID: 2031395852329487727}
---- !u!114 &8655329046248084545
+--- !u!114 &7969236652347364115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -782,9 +782,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 778289839850154684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5f8753ab6f56184cb0832ccc394b898, type: 3}
+  m_Script: {fileID: 11500000, guid: 43178ba0275611d48a229d0e9299a3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffect: {fileID: 6227725374432860989, guid: 9ceee377dfe396a4a9db77372729d4d0, type: 3}
   rightArmTarget: {fileID: 2595546303085181515}
   rightReadyTr:
     pos: {x: -0.1625372, y: 1.659014, z: -8.456448}
@@ -800,6 +801,8 @@ MonoBehaviour:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0}
   time: 0.1
+  pressureForce: 3
+  pressureOffset: 0
 --- !u!4 &805013781893326590 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 947893824491286803, guid: 3aa08d40f251e254c93867cf90330b90, type: 3}

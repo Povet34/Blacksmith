@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using Unity.Physics;
 using UnityEngine;
 
 public class Hammering : MonoBehaviour
@@ -11,10 +12,7 @@ public class Hammering : MonoBehaviour
         public Vector3 rot;
     }
 
-    public struct InitData
-    {
-        public Action hitCallback;
-    }
+    [SerializeField] ParticleSystem hitEffect;
 
     [SerializeField] Transform rightArmTarget;
     public ActionTransform rightReadyTr;
@@ -27,12 +25,11 @@ public class Hammering : MonoBehaviour
     public float time;
     bool isDone = true;
 
-    Action hitCallback;
+    public float pressureForce;
+    public float pressureOffset;
 
-    public void Init(InitData data)
+    public void Init()
     {
-        hitCallback = data.hitCallback;
-
         rightArmTarget.localPosition = rightReadyTr.pos;
         rightArmTarget.localRotation = Quaternion.Euler(rightReadyTr.rot);
     }
@@ -46,6 +43,20 @@ public class Hammering : MonoBehaviour
         }
     }
 
+    void ApplyHit()
+    {
+        var raycastHit = MouseInputHelper.GetRaycastHit();
+
+        VertexMover vertexMover = raycastHit.collider.GetComponent<VertexMover>();
+        if (vertexMover != null)
+        {
+            Vector3 inputPoint = raycastHit.point + (raycastHit.normal * pressureOffset);
+            vertexMover.ApplyPressureToPoint(inputPoint, pressureForce);
+            var particle = Instantiate(hitEffect, raycastHit.point, Quaternion.LookRotation(raycastHit.normal));
+            Destroy(particle.gameObject, particle.main.duration);
+        }
+    }
+
     public void Do()
     {
         Sequence sequence = DOTween.Sequence();
@@ -54,7 +65,7 @@ public class Hammering : MonoBehaviour
         sequence.Append(rightArmTarget.DOLocalMove(rightHitTr.pos, time).SetEase(Ease.InExpo));
         sequence.Join(rightArmTarget.DOLocalRotate(rightHitTr.rot, time).SetEase(Ease.InExpo));
 
-        sequence.AppendCallback(() => hitCallback());
+        sequence.AppendCallback(() => ApplyHit());
         sequence.AppendInterval(0.1f);
 
         sequence.Append(rightArmTarget.DOLocalMove(rightReadyTr.pos, 0.2f));

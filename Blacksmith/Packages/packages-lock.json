@@ -7,13 +7,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.rito.play-mode-saver": {
-      "version": "https://github.com/rito15/Unity-Play-Mode-Saver.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "61435a656d55cd8b5ca4483f5f2b98a942c3e9af"
-    },
     "com.unity.2d.animation": {
       "version": "10.1.3",
       "depth": 1,

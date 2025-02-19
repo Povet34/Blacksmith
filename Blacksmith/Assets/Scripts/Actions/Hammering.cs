@@ -78,13 +78,6 @@ public class Hammering : MonoBehaviour, IForgeAction
 
         leftArmTarget.localPosition = Vector3.Lerp(leftReadyTr.pos, leftHitTr.pos, ratio);
         leftArmTarget.localRotation = Quaternion.Lerp(Quaternion.Euler(leftReadyTr.rot), Quaternion.Euler(leftHitTr.rot), ratio);
-
-        //var dist = Vector3.Distance(leftReadyTr.pos, leftHitTr.pos);
-        //var dir = leftReadyTr.pos - leftHitTr.pos;
-
-        //Vector3.Lerp(leftReadyTr.pos, leftHitTr.pos, value);
-
-        //arm.arm_l.Translate(Vector3.right * value * 0.3F, Space.World);
     }
 
     void DoHammering()

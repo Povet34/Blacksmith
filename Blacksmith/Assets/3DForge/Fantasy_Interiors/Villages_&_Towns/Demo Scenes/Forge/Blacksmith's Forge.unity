@@ -13985,6 +13985,10 @@ PrefabInstance:
       value: -14.461
       objectReference: {fileID: 0}
     - target: {fileID: 2573500699714961693, guid: 2e07e43b472f4f64a97ad26461dd034d, type: 3}
+      propertyPath: maxLeftMoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2573500699714961693, guid: 2e07e43b472f4f64a97ad26461dd034d, type: 3}
       propertyPath: leftReadyTr.pos.x
       value: -0.2279115
       objectReference: {fileID: 0}

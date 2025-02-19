@@ -28,12 +28,17 @@ public class Hammering : MonoBehaviour, IForgeAction
     public float pressureForce = 3;
     public float pressureOffset;
 
+    public float maxLeftMoveSpeed = 10;
+    public float leftMoveSpeed;
+
     FPSArm arm;
     public FPSArm FPSArm { get => arm; set => arm = value; }
 
     public void Init()
     {
         arm = GetComponent<FPSArm>();
+
+        leftMoveSpeed = 0;
 
         rightArmTarget.localPosition = rightReadyTr.pos;
         rightArmTarget.localRotation = Quaternion.Euler(rightReadyTr.rot);
@@ -65,7 +70,21 @@ public class Hammering : MonoBehaviour, IForgeAction
 
     void MoveIngot(float value)
     {
-        arm.arm_l.Translate(Vector3.right * value * 0.3F, Space.World);
+        if (value == 0) return;
+
+        leftMoveSpeed = Mathf.Clamp(leftMoveSpeed + value, 0, maxLeftMoveSpeed);
+
+        var ratio = leftMoveSpeed / maxLeftMoveSpeed;
+
+        leftArmTarget.localPosition = Vector3.Lerp(leftReadyTr.pos, leftHitTr.pos, ratio);
+        leftArmTarget.localRotation = Quaternion.Lerp(Quaternion.Euler(leftReadyTr.rot), Quaternion.Euler(leftHitTr.rot), ratio);
+
+        //var dist = Vector3.Distance(leftReadyTr.pos, leftHitTr.pos);
+        //var dir = leftReadyTr.pos - leftHitTr.pos;
+
+        //Vector3.Lerp(leftReadyTr.pos, leftHitTr.pos, value);
+
+        //arm.arm_l.Translate(Vector3.right * value * 0.3F, Space.World);
     }
 
     void DoHammering()

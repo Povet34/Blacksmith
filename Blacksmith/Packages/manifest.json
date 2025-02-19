@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.rito.play-mode-saver": "https://github.com/rito15/Unity-Play-Mode-Saver.git",
     "com.unity.ai.navigation": "2.0.4",
     "com.unity.charactercontroller": "1.2.4",
     "com.unity.cinemachine": "3.1.3",

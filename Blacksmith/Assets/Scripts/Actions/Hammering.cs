@@ -23,13 +23,18 @@ public class Hammering : MonoBehaviour, IForgeAction
     public ActionTransform leftHitTr;
 
     public float time = 0.1f;
-    bool isDone = true;
+    bool isHammeringDone = true;
 
     public float pressureForce = 3;
     public float pressureOffset;
 
+    FPSArm arm;
+    public FPSArm FPSArm { get => arm; set => arm = value; }
+
     public void Init()
     {
+        arm = GetComponent<FPSArm>();
+
         rightArmTarget.localPosition = rightReadyTr.pos;
         rightArmTarget.localRotation = Quaternion.Euler(rightReadyTr.rot);
     }
@@ -48,14 +53,29 @@ public class Hammering : MonoBehaviour, IForgeAction
         }
     }
 
-    public void Do()
+    public void UpdateAction()
     {
-        if (!isDone)
+        DoHammering();
+    }
+
+    public void WheelAction(float value)
+    {
+        MoveIngot(value);
+    }
+
+    void MoveIngot(float value)
+    {
+        arm.arm_l.Translate(Vector3.right * value * 0.3F, Space.World);
+    }
+
+    void DoHammering()
+    {
+        if (!isHammeringDone)
             return;
 
         Sequence sequence = DOTween.Sequence();
 
-        isDone = false;
+        isHammeringDone = false;
         sequence.Append(rightArmTarget.DOLocalMove(rightHitTr.pos, time).SetEase(Ease.InExpo));
         sequence.Join(rightArmTarget.DOLocalRotate(rightHitTr.rot, time).SetEase(Ease.InExpo));
 
@@ -67,7 +87,7 @@ public class Hammering : MonoBehaviour, IForgeAction
 
         sequence.AppendCallback(() =>
         {
-            isDone = true;
+            isHammeringDone = true;
         });
 
         sequence.Play();

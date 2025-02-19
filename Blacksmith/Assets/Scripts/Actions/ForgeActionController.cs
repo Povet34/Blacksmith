@@ -6,6 +6,7 @@ using UnityEngine;
 public class ForgeActionController : MonoBehaviour
 {
     delegate void ForgeAction();
+    delegate void WheelAction(float value);
 
     public enum EAction
     {
@@ -20,6 +21,7 @@ public class ForgeActionController : MonoBehaviour
     [SerializeField] Hammering hammering;
 
     List<ForgeAction> forgeActions = new List<ForgeAction>();
+
     IForgeAction currentAction;
 
     private void Start()
@@ -63,12 +65,15 @@ public class ForgeActionController : MonoBehaviour
     }
 
     #endregion
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            currentAction?.Do();
-        }
+        if (MouseInputHelper.IsMouseButtonDown)
+            currentAction?.UpdateAction();
+
+        currentAction?.WheelAction(MouseInputHelper.MouseWheel);
+
+        #region Change Forge Action
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -86,5 +91,7 @@ public class ForgeActionController : MonoBehaviour
         {
             ChangeAction(EAction.Honing);
         }
+
+        #endregion
     }
 }
